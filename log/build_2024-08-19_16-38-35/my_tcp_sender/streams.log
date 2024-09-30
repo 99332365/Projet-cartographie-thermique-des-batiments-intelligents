@@ -1,0 +1,33 @@
+[1.203s] Invoking command in '/home/samar/my_workspace/build/my_tcp_sender': PYTHONPATH=/home/samar/my_workspace/build/my_tcp_sender/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/samar/my_workspace/install/my_tcp_sender/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py develop --editable --build-directory /home/samar/my_workspace/build/my_tcp_sender/build --no-deps symlink_data --force
+[1.665s] running develop
+[1.666s] /home/samar/.local/lib/python3.10/site-packages/setuptools/command/develop.py:42: EasyInstallDeprecationWarning: easy_install command is deprecated.
+[1.666s] !!
+[1.666s] 
+[1.666s]         ********************************************************************************
+[1.666s]         Please avoid running ``setup.py`` and ``easy_install``.
+[1.666s]         Instead, use pypa/build, pypa/installer or other
+[1.667s]         standards-based tools.
+[1.667s] 
+[1.667s]         See https://github.com/pypa/setuptools/issues/917 for details.
+[1.667s]         ********************************************************************************
+[1.667s] 
+[1.667s] !!
+[1.667s]   easy_install.initialize_options(self)
+[2.040s] running egg_info
+[2.062s] writing my_tcp_sender.egg-info/PKG-INFO
+[2.062s] writing dependency_links to my_tcp_sender.egg-info/dependency_links.txt
+[2.063s] writing entry points to my_tcp_sender.egg-info/entry_points.txt
+[2.063s] writing requirements to my_tcp_sender.egg-info/requires.txt
+[2.063s] writing top-level names to my_tcp_sender.egg-info/top_level.txt
+[2.115s] reading manifest file 'my_tcp_sender.egg-info/SOURCES.txt'
+[2.116s] writing manifest file 'my_tcp_sender.egg-info/SOURCES.txt'
+[2.136s] running build_ext
+[2.137s] Creating /home/samar/my_workspace/install/my_tcp_sender/lib/python3.10/site-packages/my-tcp-sender.egg-link (link to .)
+[2.137s] Installing tcp_sender_node script to /home/samar/my_workspace/install/my_tcp_sender/lib/my_tcp_sender
+[2.138s] Installing temp_control_node script to /home/samar/my_workspace/install/my_tcp_sender/lib/my_tcp_sender
+[2.138s] 
+[2.138s] Installed /home/samar/my_workspace/build/my_tcp_sender
+[2.139s] running symlink_data
+[2.139s] symbolically linking /home/samar/my_workspace/build/my_tcp_sender/resource/my_tcp_sender -> /home/samar/my_workspace/install/my_tcp_sender/share/ament_index/resource_index/packages
+[2.139s] symbolically linking /home/samar/my_workspace/build/my_tcp_sender/package.xml -> /home/samar/my_workspace/install/my_tcp_sender/share/my_tcp_sender
+[2.172s] Invoked command in '/home/samar/my_workspace/build/my_tcp_sender' returned '0': PYTHONPATH=/home/samar/my_workspace/build/my_tcp_sender/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/samar/my_workspace/install/my_tcp_sender/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py develop --editable --build-directory /home/samar/my_workspace/build/my_tcp_sender/build --no-deps symlink_data --force

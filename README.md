@@ -1,1 +1,1 @@
-# Projet-cartographie-thermique-des-b-timents-intelligents
+# Projet-cartographie-thermique-des-batiments-intelligents

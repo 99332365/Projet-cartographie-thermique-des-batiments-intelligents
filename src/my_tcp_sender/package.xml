@@ -1,0 +1,39 @@
+<!-- <?xml version="1.0"?>
+<package format="3">
+  <name>my_tcp_sender</name>
+  <version>0.0.1</version>
+  <description>A ROS 2 package to send messages via TCP</description>
+  <maintainer email="samar@example.com">samar</maintainer>
+  <license>License Type</license>
+
+  <depend>rclpy</depend>
+  <depend>geometry_msgs</depend>
+  <depend>std_msgs</depend>
+  <depend>turtlesim</depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package> -->
+<?xml version="1.0"?>
+<package format="2">
+  <name>my_tcp_sender</name>
+  <version>0.0.1</version>
+  <description>A package for TCP communication between FiPy and ROS2 nodes</description>
+  <maintainer email="samar@example.com">samar</maintainer>
+  <license>Apache License 2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <build_depend>rclpy</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

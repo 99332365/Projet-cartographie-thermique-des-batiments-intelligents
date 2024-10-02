@@ -6,6 +6,24 @@ import time
 from network import WLAN
 # from machine import Pin
 #from dht import DHT 
+# # Initialisation du capteur DHT (Type 0 = DHT11, Type 1 = DHT22) - Commenté
+# dht_sensor = DHT(Pin('P23', mode=Pin.OPEN_DRAIN), 0)
+
+# # Fonction pour récupérer la température depuis le capteur DHT (commenté)
+# def get_temperature_from_sensor():
+#     """Récupère la température à partir du capteur DHT."""
+#     time.sleep(2)  # Attendre pour stabiliser le capteur
+#     result = dht_sensor.read()
+#     while not result.is_valid():  # Attendre une lecture valide
+#         time.sleep(0.5)
+#         result = dht_sensor.read()
+#     return result.temperature
+
+
+
+
+
+
 # Configuration du réseau Wi-Fi
 ssid = 'IoT IMT Nord Europe'  # Le nom du réseau Wi-Fi auquel le module FiPy doit se connecter
 password = '72Hin@R*'  # Le mot de passe du réseau Wi-Fi
@@ -39,7 +57,8 @@ def envoyer_donnees():
 
             # Obtenir la température à envoyer
             temperature = temperatures[index]
-
+            # # Pour utiliser la température du capteur, décommentez cette ligne
+            # temperature = get_temperature_from_sensor()
             # Format des données à envoyer
             data_to_send = "Temperature: {}\n".format(temperature)
 

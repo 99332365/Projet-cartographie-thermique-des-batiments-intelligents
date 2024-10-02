@@ -15,22 +15,22 @@ Avant de commencer, assurez-vous d'avoir installé ROS 2 et d'avoir configuré v
    cd mb6-space/
    Lancer RViz : RViz est un outil de visualisation pour ROS. Utilisez la commande suivante pour le lancer :
 
-bash
+   ```bash
 
-ros2 run rviz2 rviz2
-Démarrer la boîte à outils SLAM : Utilisez la commande suivante pour lancer le nœud de la boîte à outils SLAM en mode asynchrone :
+   ros2 run rviz2 rviz2
+   Démarrer la boîte à outils SLAM : Utilisez la commande suivante pour lancer le nœud de la boîte à outils SLAM en mode asynchrone :
 
-bash
+   ```bash
 
-ros2 launch slam_toolbox online_async_launch.py
-Lister les sujets disponibles : Après avoir démarré les nœuds, vous pouvez lister les sujets ROS disponibles à l'aide de la commande suivante :
+   ros2 launch slam_toolbox online_async_launch.py
+   Lister les sujets disponibles : Après avoir démarré les nœuds, vous pouvez lister les sujets ROS disponibles à l'aide de la commande suivante :
 
-bash
+   ```bash
 
-ros2 topic list
-Lister les nœuds actifs : Pour voir tous les nœuds ROS actifs, exécutez la commande suivante :
+   ros2 topic list
+   Lister les nœuds actifs : Pour voir tous les nœuds ROS actifs, exécutez la commande suivante :
 
-bash
+   ```bash
 
-ros2 node list
+    ros2 node list
 

@@ -9,7 +9,7 @@ Publie des marqueurs pour RViz en fonction des données reçues.
 
 Installez les dépendances nécessaires (si applicable).
 - **Lancez le nœud**  :
-bash
+ ```bash
 
 ros2 run tcp_sender tcp_sender_node
 

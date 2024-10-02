@@ -53,7 +53,7 @@ python ble/client_ble.py
 - **Emplacement** :  wifi/client/client_wifi.py
 - **Fonctionnalités** :
 Se connecte à un réseau Wi-Fi et envoie périodiquement des données de température à un serveur TCP.
-## Installation et Utilisation
+ Installation et Utilisation
 
 Installez les dépendances nécessaires (si applicable).
 Exécutez le script :

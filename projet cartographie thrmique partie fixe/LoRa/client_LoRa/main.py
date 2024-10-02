@@ -5,7 +5,7 @@ import time
 
 import machine  # Utilisé pour simuler la température avec un capteur DHT ou un autre capteur
 # from machine import Pin
-#from dht import DHT  # https://github.com/JurassicPork/DHT_PyCom
+#from dht import DHT 
 class LoRaClient:
     """Classe pour gérer un client LoRa qui envoie des données de température via LoRa."""
     

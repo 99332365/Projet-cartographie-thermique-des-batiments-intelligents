@@ -59,13 +59,16 @@ Installez les dépendances nécessaires (si applicable).
 Exécutez le script :
    ```bash
    python wifi/client/client_wifi.py
-## Clients
-Serveur
+
+
+## Serveur
 - **Emplacement** : passerelle/server.py
 - **Fonctionnalités** :
 Gère les connexions des clients LoRa, BLE et Wi-Fi.
 Reçoit des données de température de chaque client et les envoie à un autre nœud TCP.
-Installation et Utilisation
+
+
+##Installation et Utilisation
 Installez les dépendances nécessaires (si applicable).
 Exécutez le script :
 bash

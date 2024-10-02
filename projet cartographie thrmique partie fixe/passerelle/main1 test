@@ -1,0 +1,131 @@
+from network import Bluetooth, WLAN, LoRa  # Importation des modules nécessaires
+import struct  # Pour le traitement des données binaires
+import socket  # Pour la communication réseau
+import time  # Pour la gestion du temps
+import _thread as thread  # Pour la gestion des threads
+
+# Configuration du réseau Wi-Fi
+SSID = 'IoT IMT Nord Europe'  # Nom du réseau Wi-Fi
+PASSWORD = '72Hin@R*'  # Mot de passe du réseau Wi-Fi
+
+# Variable globale pour stocker l'adresse IP Wi-Fi
+wlan_ip = None  # Initialisation de la variable d'adresse IP
+
+def configurer_reseau():
+    """Configure la connexion au réseau Wi-Fi."""
+    wlan = WLAN(mode=WLAN.STA)  # Définit le mode de WLAN en tant que station
+    wlan.connect(SSID, auth=(WLAN.WPA2, PASSWORD))  # Connexion au réseau Wi-Fi
+
+    # Attente de la connexion
+    while not wlan.isconnected():
+        print('Connecting to Wi-Fi...')  # Affiche un message de connexion
+        time.sleep(1)  # Pause d'une seconde
+
+    global wlan_ip  # Utilisation de la variable globale
+    wlan_ip = wlan.ifconfig()[0]  # Récupère l'adresse IP
+    print('Connected to Wi-Fi, IP Address: {}'.format(wlan_ip))  # Affiche l'adresse IP
+    return wlan_ip  # Retourne l'adresse IP
+
+def envoyer_temperature_tcp_sender(temperature):
+    """Envoie la température au TcpSenderNode via TCP."""
+    command = 'Temperature: {}\n'.format(temperature)  # Formate la commande
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as conn:  # Crée une socket TCP
+            conn.connect(('10.89.1.86', 1235))  # Connexion au TcpSenderNode
+            conn.send(command.encode())  # Envoie la commande au serveur
+            print('Température envoyée: {}'.format(command.strip()))  # Affiche la température envoyée
+    except Exception as e:  # Gère les exceptions
+        print('Erreur d\'envoi de température: {}'.format(e))  # Affiche l'erreur
+
+# Initialisation du Bluetooth
+bluetooth = Bluetooth()  # Crée une instance Bluetooth
+bluetooth.init()  # Initialise le Bluetooth
+SERVICE_UUID = 0xec00  # UUID du service Bluetooth
+CHARACTERISTIC_UUID = 0xec0e  # UUID de la caractéristique Bluetooth
+
+def handle_client(value):
+    """Gère les données reçues d'un client BLE."""
+    try:
+        temperature = struct.unpack('f', value)[0]  # Décompacte la valeur en float
+        print("Température reçue (BLE): {:.2f} °C".format(temperature))  # Affiche la température reçue
+        envoyer_temperature_tcp_sender(temperature)  # Envoie la température au TcpSenderNode
+    except Exception as e:  # Gère les exceptions
+        print("Erreur lors du traitement des données reçues:", e)  # Affiche l'erreur
+
+def conn_cb(event):
+    """Callback pour les événements de connexion/déconnexion."""
+    if event == Bluetooth.CLIENT_CONNECTED:  # Si un client se connecte
+        print('Client connecté')  # Affiche un message de connexion
+    elif event == Bluetooth.CLIENT_DISCONNECTED:  # Si un client se déconnecte
+        print('Client déconnecté')  # Affiche un message de déconnexion
+
+def chr1_handler(chr, value):
+    """Callback pour gérer les données reçues dans la caractéristique."""
+    try:
+        value = value[1] if isinstance(value, tuple) and len(value) > 1 else value  # Vérifie le format de la valeur
+        handle_client(value)  # Appelle la fonction de gestion des clients
+    except Exception as e:  # Gère les exceptions
+        print("Erreur dans le handler de caractéristique:", e)  # Affiche l'erreur
+
+# Serveur TCP
+def serveur_tcp():
+    port = 1234  # Port d'écoute pour le serveur TCP
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:  # Crée une socket TCP
+        s.bind((wlan_ip, port))  # Lie la socket à l'adresse IP et au port
+        s.listen(1)  # Écoute les connexions
+        print('Serveur TCP en écoute sur {}:{}'.format(wlan_ip, port))  # Affiche l'adresse du serveur
+
+        while True:  # Boucle infinie pour accepter les connexions
+            conn, _ = s.accept()  # Accepte une connexion entrante
+            print('Connexion acceptée')  # Affiche un message de connexion
+            with conn:  # Utilise la connexion
+                while True:  # Boucle pour recevoir des données
+                    data = conn.recv(1024).decode()  # Reçoit les données
+                    if not data:  # Si aucune donnée n'est reçue
+                        break  # Quitte la boucle
+                    print('Données reçues (Wi-Fi): {}'.format(data.strip()))  # Affiche les données reçues
+                    if data.startswith('Temperature:'):  # Si les données commencent par 'Temperature:'
+                        temperature = data.split(':')[1].strip()  # Récupère la température
+                        print('Température reçue (Wi-Fi): {}'.format(temperature))  # Affiche la température reçue
+                        envoyer_temperature_tcp_sender(temperature)  # Envoie la température au TcpSenderNode
+                    conn.send('Message reçu et traité\n'.encode())  # Envoie un accusé de réception
+
+# Serveur BLE
+def serveur_ble():
+    bluetooth.set_advertisement(name='FiPy Server', service_uuid=SERVICE_UUID)  # Définit les paramètres de l'annonce Bluetooth
+    bluetooth.advertise(True)  # Commence à annoncer le service
+    srv1 = bluetooth.service(uuid=SERVICE_UUID, isprimary=True, nbr_chars=1)  # Crée un service Bluetooth
+    chr1 = srv1.characteristic(uuid=CHARACTERISTIC_UUID, value=b'')  # Crée une caractéristique Bluetooth
+    chr1.callback(trigger=Bluetooth.CHAR_WRITE_EVENT, handler=chr1_handler)  # Définit le gestionnaire pour les écritures
+    bluetooth.callback(trigger=Bluetooth.CLIENT_CONNECTED | Bluetooth.CLIENT_DISCONNECTED, handler=conn_cb)  # Définit le gestionnaire pour les connexions
+
+    print('Serveur BLE démarré et en attente de connexions...')  # Affiche un message d'état
+    while True:  # Boucle infinie pour maintenir le serveur en attente
+        time.sleep(1)  # Pause d'une seconde
+
+# Serveur LoRa
+def serveur_lora():
+    lora = LoRa(mode=LoRa.LORA, region=LoRa.EU868, frequency=868000000, sf=7)  # Configure le module LoRa
+    s = socket.socket(socket.AF_LORA, socket.SOCK_RAW)  # Crée une socket LoRa
+    s.setblocking(False)  # Définit la socket en mode non-bloquant
+
+    print('Serveur LoRa démarré et en attente de données...')  # Affiche un message d'état
+    while True:  # Boucle infinie pour recevoir des données
+        data = s.recv(256)  # Reçoit des données LoRa
+        if data:  # Si des données sont reçues
+            client_id, temperature = struct.unpack('>If', data[:8])  # Décompacte les données
+            print('Température reçue (LoRa) de client {}: {:.2f} °C'.format(client_id, temperature))  # Affiche la température reçue
+            envoyer_temperature_tcp_sender(temperature)  # Envoie la température au TcpSenderNode
+        time.sleep(1)  # Pause d'une seconde
+
+# Démarrage du réseau Wi-Fi
+wlan_ip = configurer_reseau()  # Appelle la fonction de configuration du réseau
+
+# Démarrage des serveurs dans des threads séparés
+thread.start_new_thread(serveur_tcp, ())  # Démarre le serveur TCP dans un nouveau thread
+thread.start_new_thread(serveur_ble, ())  # Démarre le serveur BLE dans un nouveau thread
+thread.start_new_thread(serveur_lora, ())  # Démarre le serveur LoRa dans un nouveau thread
+
+# Boucle principale pour maintenir le programme en cours d'exécution
+while True:
+    time.sleep(1)  # Pause d'une seconde pour maintenir l'exécution

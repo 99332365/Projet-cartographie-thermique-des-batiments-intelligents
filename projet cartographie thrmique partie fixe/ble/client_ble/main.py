@@ -3,8 +3,23 @@
 from network import Bluetooth
 import time
 import struct
+## capteur relle DHT11
+#from dht import DHT
+# from machine import Pin
 
-# Liste des valeurs de température à envoyer
+# # Initialisation du capteur DHT (Type 0 = DHT11, Type 1 = DHT22)
+# dht_sensor = DHT(Pin('P23', mode=Pin.OPEN_DRAIN), 0)
+
+# # Fonction pour récupérer la température depuis le capteur DHT (commenté)
+# def get_temperature_from_sensor():
+#     """Récupère la température à partir du capteur DHT."""
+#     time.sleep(2)  # Attendre pour stabiliser le capteur
+#     result = dht_sensor.read()
+#     while not result.is_valid():  # Attendre une lecture valide
+#         time.sleep(0.5)
+#         result = dht_sensor.read()
+#     return result.temperature
+
 # Cette liste représente des valeurs fictives de température, qui seront envoyées au serveur BLE.
 temperature_values = [20.0, 21.5, 22.3, 23.1, 24.0, 25.2, 26.1, 27.5, 28.0, 29.3]
 
@@ -17,6 +32,8 @@ def send_temperature(conn, char):
     """
     # Boucle sur chaque valeur de température dans la liste 'temperature_values'
     for temp in temperature_values:
+        # Si vous souhaitez récupérer la température depuis un capteur, décommentez la ligne suivante
+        # temp = get_temperature_from_sensor()  # Récupérer la température réelle
         # Convertir la température en format binaire (float) pour l'envoyer via BLE.
         byte_data = struct.pack('f', temp)
         # Écrire les données binaires (température) dans la caractéristique du serveur BLE.

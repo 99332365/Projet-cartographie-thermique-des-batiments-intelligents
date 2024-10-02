@@ -4,7 +4,8 @@ import network
 import socket
 import time
 from network import WLAN
-
+# from machine import Pin
+#from dht import DHT 
 # Configuration du réseau Wi-Fi
 ssid = 'IoT IMT Nord Europe'  # Le nom du réseau Wi-Fi auquel le module FiPy doit se connecter
 password = '72Hin@R*'  # Le mot de passe du réseau Wi-Fi

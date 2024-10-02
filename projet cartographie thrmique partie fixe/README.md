@@ -1,43 +1,46 @@
-# projet cartographie thermique partie fixe
+Projet de Cartographie Thermique : Partie Fixe
+Ce projet consiste en un système de communication IoT qui utilise LoRa, Bluetooth Low Energy (BLE), et Wi-Fi pour transmettre des données de température entre divers dispositifs. Le système inclut des clients pour chaque type de communication et un serveur pour gérer les connexions.
 
-Ce projet consiste en un système de communication IoT qui utilise **LoRa**, **Bluetooth Low Energy (BLE)**, et **Wi-Fi** pour transmettre des données de température entre divers dispositifs. Le système inclut des clients pour chaque type de communication et un serveur pour gérer les connexions.
+Table des Matières
+Introduction
+Architecture du Projet
+Clients
+Client LoRa
+Client BLE
+Client Wi-Fi
+Serveur
+Installation
+Utilisation
+Auteurs
+Introduction
+Ce système IoT est conçu pour collecter des données de température à partir de différents capteurs et les envoyer à un serveur à travers des protocoles sans fil variés. Il permet une surveillance et un enregistrement des températures dans divers environnements, contribuant à la gestion intelligente des bâtiments.
 
-## Table des Matières
-
-- [Introduction](#introduction)
-- [Architecture du Projet](#architecture-du-projet)
-- [Clients](#clients)
-  - [Client LoRa](#client-lora)
-  - [Client BLE](#client-ble)
-  - [Client Wi-Fi](#client-wi-fi)
-- [Serveur](#serveur)
-- [Installation](#installation)
-- [Utilisation](#utilisation)
-- [Auteurs](#auteurs)
-
-## Introduction
-
-Ce système IoT est conçu pour collecter des données de température à partir de différents capteurs et les envoyer à un serveur à travers des protocoles sans fil variés. 
-
-## Architecture du Projet
-
-. ├── LoRa/ │ └── client_LoRa.py # Client LoRa pour envoyer des données de température ├── ble/ │ └── client_ble.py # Client BLE pour envoyer des données de température ├── wifi/ │ └── client/ # Client Wi-Fi pour envoyer des données à un serveur TCP │ └── client_wifi.py # Script client Wi-Fi ├── passerelle/ # Passerelle pour recevoir des données │ └── server.py # Script serveur gérant les connexions LoRa, BLE et Wi-Fi └── README.md # Ce fichier
-
-
-## Clients
-
-### Client LoRa
-
-- **Emplacement** : `LoRa/client_LoRa.py`
-- **Fonctionnalités** :
-  - Envoie des données de température via LoRa.
-  - Utilise un identifiant client, la fréquence, le facteur d'étalement, la bande passante et le taux de codage pour la configuration.
-
-#### Installation et Utilisation
-1. **Installez les dépendances nécessaires** (si applicable).
-2. **Exécutez le script** :
-   ```bash
-   python LoRa/client_LoRa.py
+Architecture du Projet
+bash
+Copier le code
+.
+├── LoRa/
+│   └── client_LoRa.py      # Client LoRa pour envoyer des données de température
+├── ble/
+│   └── client_ble.py       # Client BLE pour envoyer des données de température
+├── wifi/
+│   ├── client/              # Client Wi-Fi pour envoyer des données à un serveur TCP
+│   └── client_wifi.py       # Script client Wi-Fi
+├── passerelle/              # Passerelle pour recevoir des données
+│   └── server.py            # Script serveur gérant les connexions LoRa, BLE et Wi-Fi
+└── README.md                # Ce fichier
+Clients
+Client LoRa
+Emplacement : LoRa/client_LoRa.py
+Fonctionnalités :
+Envoie des données de température via LoRa.
+Utilise un identifiant client, la fréquence, le facteur d'étalement, la bande passante et le taux de codage pour la configuration.
+Installation et Utilisation
+Installez les dépendances nécessaires (si applicable).
+Exécutez le script :
+bash
+Copier le code
+python LoRa/client_LoRa.py
 Client BLE
 Emplacement : ble/client_ble.py
 Fonctionnalités :
@@ -46,6 +49,8 @@ Se connecte à un serveur BLE nommé "FiPy Server".
 Installation et Utilisation
 Installez les dépendances nécessaires (si applicable).
 Exécutez le script :
+bash
+Copier le code
 python ble/client_ble.py
 Client Wi-Fi
 Emplacement : wifi/client/client_wifi.py
@@ -55,6 +60,7 @@ Installation et Utilisation
 Installez les dépendances nécessaires (si applicable).
 Exécutez le script :
 bash
+Copier le code
 python wifi/client/client_wifi.py
 Serveur
 Emplacement : passerelle/server.py
@@ -65,16 +71,18 @@ Installation et Utilisation
 Installez les dépendances nécessaires (si applicable).
 Exécutez le script :
 bash
+Copier le code
 python passerelle/server.py
-
 Installation
 Clonez le dépôt :
 bash
-git clone <url_du_depot>
-cd <nom_du_depot>
+Copier le code
+git clone https://github.com/99332365/Projet-cartographie-thermique-des-batiments-intelligents.git
+cd Projet-cartographie-thermique-des-batiments-intelligents
 Installez les bibliothèques nécessaires (si applicable).
 Utilisation
-Assurez-vous que tous les dispositifs sont alimentés et connectés au même réseau.
-Exécutez d'abord le serveur, puis les clients correspondants (LoRa, BLE, Wi-Fi) pour commencer à recevoir et envoyer des données.
+Assurez-vous que tous les dispositifs sont alimentés et connectés au même réseau. Exécutez d'abord le serveur, puis les clients correspondants (LoRa, BLE, Wi-Fi) pour commencer à recevoir et envoyer des données.
+
 Auteurs
-Rezgui Samar 
+Rezgui Samar
+

@@ -45,7 +45,7 @@ Ce système IoT est conçu pour collecter des données de température à partir
 Envoie des valeurs de température à un serveur BLE.
 Se connecte à un serveur BLE nommé "FiPy Server".
 
- ##Installation et Utilisation
+Installation et Utilisation
 Installez les dépendances nécessaires (si applicable).
 Exécutez le script :
 python ble/client_ble.py

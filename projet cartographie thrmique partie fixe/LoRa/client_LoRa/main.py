@@ -3,7 +3,7 @@ import socket
 import struct
 import time
 import machine  # Utilisé pour simuler la température avec un capteur DHT ou un autre capteur
-
+#from dht import DHT  # https://github.com/JurassicPork/DHT_PyCom
 class LoRaClient:
     """Classe pour gérer un client LoRa qui envoie des données de température via LoRa."""
     
@@ -28,8 +28,10 @@ class LoRaClient:
     def start(self):
         """Démarre le client LoRa (affiche un message indiquant que le client est actif)."""
         print("LoRa Client started")
-
+   #  l'intégration du capteur DHT11
+   # self.dht_sensor = DHT(Pin('P23', mode=Pin.OPEN_DRAIN), 0)  # Type 0 = DHT11
     def get_temperature(self):
+        # return self.dht_sensor.read().temperature  # Récupération réelle de la température du capteur DHT11
         """Simule la lecture d'une température.
         
         Cette méthode est censée être remplacée par une véritable lecture depuis un capteur, comme un DHT11.

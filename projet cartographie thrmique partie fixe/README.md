@@ -1,10 +1,28 @@
-# Projet de Communication Sans Fil
+# projet cartographie thermique partie fixe
 
-Ce projet comprend des clients pour différents protocoles de communication sans fil, y compris **LoRa**, **BLE (Bluetooth Low Energy)**, et **Wi-Fi**. Chaque client est conçu pour faciliter la communication entre des dispositifs connectés.
+Ce projet consiste en un système de communication IoT qui utilise **LoRa**, **Bluetooth Low Energy (BLE)**, et **Wi-Fi** pour transmettre des données de température entre divers dispositifs. Le système inclut des clients pour chaque type de communication et un serveur pour gérer les connexions.
 
-## Structure du Projet
+## Table des Matières
 
-. ├── LoRa/ │ └── client_LoRa.py # Script client LoRa ├── ble/ │ └── client_ble.py # Script client BLE ├── passerelle/ # Répertoire pour le projet passerelle │ └── [autres fichiers...] # Fichiers liés au projet passerelle └── wifi/ └── client/ # Répertoire pour le client Wi-Fi └── [autres fichiers...] # Fichiers du client Wi-Fi
+- [Introduction](#introduction)
+- [Architecture du Projet](#architecture-du-projet)
+- [Clients](#clients)
+  - [Client LoRa](#client-lora)
+  - [Client BLE](#client-ble)
+  - [Client Wi-Fi](#client-wi-fi)
+- [Serveur](#serveur)
+- [Installation](#installation)
+- [Utilisation](#utilisation)
+- [Auteurs](#auteurs)
+
+## Introduction
+
+Ce système IoT est conçu pour collecter des données de température à partir de différents capteurs et les envoyer à un serveur à travers des protocoles sans fil variés. 
+
+## Architecture du Projet
+
+. ├── LoRa/ │ └── client_LoRa.py # Client LoRa pour envoyer des données de température ├── ble/ │ └── client_ble.py # Client BLE pour envoyer des données de température ├── wifi/ │ └── client/ # Client Wi-Fi pour envoyer des données à un serveur TCP │ └── client_wifi.py # Script client Wi-Fi ├── passerelle/ # Passerelle pour recevoir des données │ └── server.py # Script serveur gérant les connexions LoRa, BLE et Wi-Fi └── README.md # Ce fichier
+
 
 ## Clients
 
@@ -12,8 +30,8 @@ Ce projet comprend des clients pour différents protocoles de communication sans
 
 - **Emplacement** : `LoRa/client_LoRa.py`
 - **Fonctionnalités** :
-  - Établissement d'une communication via LoRa.
-  - Envoi et réception de messages.
+  - Envoie des données de température via LoRa.
+  - Utilise un identifiant client, la fréquence, le facteur d'étalement, la bande passante et le taux de codage pour la configuration.
 
 #### Installation et Utilisation
 1. **Installez les dépendances nécessaires** (si applicable).
@@ -23,11 +41,40 @@ Ce projet comprend des clients pour différents protocoles de communication sans
 Client BLE
 Emplacement : ble/client_ble.py
 Fonctionnalités :
-Établissement d'une communication via BLE.
-Découverte et connexion à des périphériques BLE.
+Envoie des valeurs de température à un serveur BLE.
+Se connecte à un serveur BLE nommé "FiPy Server".
+Installation et Utilisation
+Installez les dépendances nécessaires (si applicable).
+Exécutez le script :
+python ble/client_ble.py
+Client Wi-Fi
+Emplacement : wifi/client/client_wifi.py
+Fonctionnalités :
+Se connecte à un réseau Wi-Fi et envoie périodiquement des données de température à un serveur TCP.
 Installation et Utilisation
 Installez les dépendances nécessaires (si applicable).
 Exécutez le script :
 bash
-Copier le code
-python ble/client_ble.py
+python wifi/client/client_wifi.py
+Serveur
+Emplacement : passerelle/server.py
+Fonctionnalités :
+Gère les connexions des clients LoRa, BLE et Wi-Fi.
+Reçoit des données de température de chaque client et les envoie à un autre nœud TCP.
+Installation et Utilisation
+Installez les dépendances nécessaires (si applicable).
+Exécutez le script :
+bash
+python passerelle/server.py
+
+Installation
+Clonez le dépôt :
+bash
+git clone <url_du_depot>
+cd <nom_du_depot>
+Installez les bibliothèques nécessaires (si applicable).
+Utilisation
+Assurez-vous que tous les dispositifs sont alimentés et connectés au même réseau.
+Exécutez d'abord le serveur, puis les clients correspondants (LoRa, BLE, Wi-Fi) pour commencer à recevoir et envoyer des données.
+Auteurs
+Rezgui Samar 

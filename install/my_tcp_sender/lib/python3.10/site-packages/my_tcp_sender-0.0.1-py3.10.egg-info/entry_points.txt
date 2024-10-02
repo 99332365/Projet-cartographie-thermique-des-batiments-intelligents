@@ -1,3 +1,0 @@
-[console_scripts]
-tcp_sender_node = my_tcp_sender.tcp_sender_node:main
-temp_control_node = my_tcp_sender.temp_control_node:main

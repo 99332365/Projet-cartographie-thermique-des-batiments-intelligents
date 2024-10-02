@@ -1,8 +1,0 @@
-Metadata-Version: 2.1
-Name: my_tcp_sender
-Version: 0.0.1
-Summary: A package for TCP communication between FiPy and ROS2 nodes
-Maintainer: samar
-Maintainer-email: samar@example.com
-License: Apache License 2.0
-Requires-Dist: setuptools
